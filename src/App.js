@@ -19,6 +19,8 @@ function App({ plugin }) {
     plugin?.setFieldValue(plugin?.fieldPath, JSON.stringify(icon));
   };
 
+  console.log("VALUE: ", plugin?.getFieldValue(plugin?.fieldPath));
+
   const allIcons = [...iconsSolid, ...iconsRegular, ...iconsBrands]
     .filter((icon) => {
       if (searchTerm) {

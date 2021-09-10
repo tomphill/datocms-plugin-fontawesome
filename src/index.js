@@ -21,8 +21,6 @@ if (process.env.NODE_ENV === "development") {
   DatoCmsPlugin.init(function (plugin) {
     // place your custom plugin code here
     plugin.startAutoResizer();
-
-    console.log(plugin.theme);
     renderUI(plugin);
   });
 }
