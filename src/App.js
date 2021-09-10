@@ -1,17 +1,40 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { library } from "@fortawesome/fontawesome-svg-core";
-//import { iconsBrands } from "./icons/iconsBrands";
-//import { iconsRegular } from "./icons/iconsRegular";
+import { iconsBrands } from "./icons/iconsBrands";
+import { iconsRegular } from "./icons/iconsRegular";
 import { iconsSolid } from "./icons/iconsSolid";
 import * as faSolid from "@fortawesome/free-solid-svg-icons";
+import * as faRegular from "@fortawesome/free-regular-svg-icons";
+import * as faBrands from "@fortawesome/free-brands-svg-icons";
 import "./App.css";
 
 function App({ plugin }) {
+  const [searchTerm, setSearchTerm] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
   const [selectedIcon, setSelectedIcon] = useState(null);
   const handleIconClick = (icon) => {
     setSelectedIcon(icon);
   };
+
+  const allIcons = [...iconsSolid, ...iconsRegular, ...iconsBrands]
+    .filter((icon) => {
+      if (searchTerm) {
+        return icon.name.indexOf(searchTerm.toLowerCase()) !== -1;
+      } else {
+        return icon;
+      }
+    })
+    .sort((a, b) => {
+      const aName = `${a.name}${a.prefix}`;
+      const bName = `${b.name}${b.prefix}`;
+
+      if (aName > bName) {
+        return 1;
+      } else if (aName < bName) {
+        return -1;
+      }
+      return 0;
+    });
 
   const getReactIconName = (icon) => {
     let iconNameSpaces = icon.name.replace("-", " ");
@@ -26,26 +49,33 @@ function App({ plugin }) {
     return reactIconName;
   };
 
-  useEffect(() => {
-    iconsSolid.forEach((icon) => {
-      const reactIconName = getReactIconName(icon);
-      library.add(faSolid[`fa${reactIconName}`]);
-    });
-  }, []);
+  const pageSize = 30;
+  const workingIcons = [...allIcons].slice(
+    (currentPage - 1) * pageSize,
+    (currentPage - 1) * pageSize + pageSize
+  );
+  const totalPages = Math.ceil(allIcons.length / pageSize);
 
   return (
     <>
       <div className="App">
-        {!selectedIcon && <h3>No icon selected</h3>}
+        {!selectedIcon && (
+          <div className="search-input-wrapper">
+            <input
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              placeholder="Search..."
+              type="search"
+            />
+          </div>
+        )}
         {!!selectedIcon && (
           <div
             className="selected-icon"
             key={`${selectedIcon.prefix}${selectedIcon.name}`}
           >
             <div>
-              <FontAwesomeIcon
-                icon={[selectedIcon.prefix, selectedIcon.name]}
-              />
+              <FontAwesomeIcon icon={selectedIcon.reactImport} />
             </div>
             <span>{selectedIcon.name}</span>
             <div onClick={() => setSelectedIcon(null)} className="remove-text">
@@ -55,28 +85,85 @@ function App({ plugin }) {
         )}
         <div className="grid">
           {!selectedIcon &&
-            iconsSolid.map((icon) => {
+            workingIcons.map((icon) => {
               const reactIconName = getReactIconName(icon);
+              let importFrom;
+              switch (icon.prefix) {
+                case "fas":
+                  importFrom = faSolid;
+                  break;
+                case "far":
+                  importFrom = faRegular;
+                  break;
+                case "fab":
+                  importFrom = faBrands;
+                  break;
+                default:
+                  break;
+              }
 
               return (
                 <div
                   onClick={() =>
                     handleIconClick({
                       ...icon,
-                      reactName: `fa${reactIconName}`,
+                      reactImport: importFrom[`fa${reactIconName}`],
                     })
                   }
                   className="icon"
                   key={`${icon.prefix}${icon.name}`}
                 >
                   <div>
-                    <FontAwesomeIcon icon={[icon.prefix, icon.name]} />
+                    <FontAwesomeIcon icon={importFrom[`fa${reactIconName}`]} />
                   </div>
                   <span>{icon.name}</span>
                 </div>
               );
             })}
         </div>
+        {!selectedIcon && (
+          <div className="pagination">
+            <div>
+              <div>
+                Page {currentPage} of {totalPages}
+              </div>
+              <div className="pages">
+                <button
+                  onClick={() => setCurrentPage(1)}
+                  disabled={currentPage === 1}
+                  className="btn"
+                  style={{ background: plugin?.theme.primaryColor || "black" }}
+                >
+                  <FontAwesomeIcon icon={faSolid.faAngleDoubleLeft} />
+                </button>
+                <button
+                  onClick={() => setCurrentPage((s) => s - 1)}
+                  disabled={currentPage === 1}
+                  className="btn"
+                  style={{ background: plugin?.theme.primaryColor || "black" }}
+                >
+                  <FontAwesomeIcon icon={faSolid.faAngleLeft} />
+                </button>
+                <button
+                  disabled={currentPage === totalPages}
+                  onClick={() => setCurrentPage((s) => s + 1)}
+                  className="btn"
+                  style={{ background: plugin?.theme.primaryColor || "black" }}
+                >
+                  <FontAwesomeIcon icon={faSolid.faAngleRight} />
+                </button>
+                <button
+                  disabled={currentPage === totalPages}
+                  onClick={() => setCurrentPage(totalPages)}
+                  className="btn"
+                  style={{ background: plugin?.theme.primaryColor || "black" }}
+                >
+                  <FontAwesomeIcon icon={faSolid.faAngleDoubleRight} />
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </>
   );
