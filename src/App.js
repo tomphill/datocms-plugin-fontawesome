@@ -16,7 +16,7 @@ function App({ plugin }) {
   );
   const handleIconClick = (icon) => {
     setSelectedIcon(icon);
-    plugin?.setFieldValue(plugin?.fieldPath, { icon: icon });
+    plugin?.setFieldValue(plugin?.fieldPath, JSON.stringify(icon));
   };
 
   const allIcons = [...iconsSolid, ...iconsRegular, ...iconsBrands]
