@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
 //import { iconsBrands } from "./icons/iconsBrands";
@@ -7,32 +8,77 @@ import * as faSolid from "@fortawesome/free-solid-svg-icons";
 import "./App.css";
 
 function App({ plugin }) {
-  return (
-    <div className="App">
-      {iconsSolid.map((icon) => {
-        let iconNameSpaces = icon.name.replace("-", " ");
-        while (iconNameSpaces.indexOf("-") !== -1) {
-          iconNameSpaces = iconNameSpaces.replace("-", " ");
-        }
-        const iconNameSplit = iconNameSpaces.split(" ");
-        let reactIconName = "";
-        iconNameSplit.forEach((str) => {
-          reactIconName = `${reactIconName}${str[0].toUpperCase()}${str.substr(
-            1
-          )}`;
-        });
+  const [selectedIcon, setSelectedIcon] = useState(null);
+  const handleIconClick = (icon) => {
+    setSelectedIcon(icon);
+  };
 
-        library.add(faSolid[`fa${reactIconName}`]);
-        return (
-          <div className="icon" key={`${icon.prefix}${icon.name}`}>
+  const getReactIconName = (icon) => {
+    let iconNameSpaces = icon.name.replace("-", " ");
+    while (iconNameSpaces.indexOf("-") !== -1) {
+      iconNameSpaces = iconNameSpaces.replace("-", " ");
+    }
+    const iconNameSplit = iconNameSpaces.split(" ");
+    let reactIconName = "";
+    iconNameSplit.forEach((str) => {
+      reactIconName = `${reactIconName}${str[0].toUpperCase()}${str.substr(1)}`;
+    });
+    return reactIconName;
+  };
+
+  useEffect(() => {
+    iconsSolid.forEach((icon) => {
+      const reactIconName = getReactIconName(icon);
+      library.add(faSolid[`fa${reactIconName}`]);
+    });
+  }, []);
+
+  return (
+    <>
+      <div className="App">
+        {!selectedIcon && <h3>No icon selected</h3>}
+        {!!selectedIcon && (
+          <div
+            className="selected-icon"
+            key={`${selectedIcon.prefix}${selectedIcon.name}`}
+          >
             <div>
-              <FontAwesomeIcon icon={[icon.prefix, icon.name]} />
+              <FontAwesomeIcon
+                icon={[selectedIcon.prefix, selectedIcon.name]}
+              />
             </div>
-            <span>{icon.name}</span>
+            <span>{selectedIcon.name}</span>
+            <div onClick={() => setSelectedIcon(null)} className="remove-text">
+              Remove
+            </div>
           </div>
-        );
-      })}
-    </div>
+        )}
+        <div className="grid">
+          {!selectedIcon &&
+            iconsSolid.map((icon) => {
+              const reactIconName = getReactIconName(icon);
+
+              return (
+                <div
+                  onClick={() =>
+                    handleIconClick({
+                      ...icon,
+                      reactName: `fa${reactIconName}`,
+                    })
+                  }
+                  className="icon"
+                  key={`${icon.prefix}${icon.name}`}
+                >
+                  <div>
+                    <FontAwesomeIcon icon={[icon.prefix, icon.name]} />
+                  </div>
+                  <span>{icon.name}</span>
+                </div>
+              );
+            })}
+        </div>
+      </div>
+    </>
   );
 }
 

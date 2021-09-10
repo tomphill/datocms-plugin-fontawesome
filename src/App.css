@@ -1,39 +1,57 @@
 .App {
+  padding: 20px;
+}
+.grid {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
-  font-size: 14px;
-  padding: 20px;
   max-height: 300px;
   overflow: auto;
 }
+.selected-icon,
 .icon {
   padding: 4px 0;
   cursor: pointer;
   display: flex;
+  color: #666;
 }
+.selected-icon {
+  color: black;
+  cursor: initial;
+}
+.icon:hover {
+  color: black;
+}
+.remove-text {
+  color: red;
+  cursor: pointer;
+  margin: auto 0 auto 8px;
+}
+.selected-icon svg,
 .icon svg {
   font-size: 20px;
   margin: auto 0;
 }
+.selected-icon > div:first-child,
 .icon > div {
   width: 40px;
   min-width: 40px;
   display: flex;
   justify-content: center;
 }
+.selected-icon > span,
 .icon > span {
   padding-left: 4px;
   margin: auto 0;
 }
 
 @media (max-width: 900px) {
-  .App {
+  .grid {
     grid-template-columns: 1fr 1fr 1fr;
   }
 }
 
 @media (max-width: 600px) {
-  .App {
+  .grid {
     grid-template-columns: 1fr 1fr;
   }
 }
