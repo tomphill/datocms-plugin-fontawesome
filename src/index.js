@@ -11,7 +11,7 @@ DatoCmsPlugin.init(function (plugin) {
 
   ReactDOM.render(
     <React.StrictMode>
-      <App />
+      <App style={{ color: plugin.theme.primaryColor }} />
     </React.StrictMode>,
     document.getElementById("root")
   );
