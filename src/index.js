@@ -9,6 +9,8 @@ DatoCmsPlugin.init(function (plugin) {
   // place your custom plugin code here
   plugin.startAutoResizer();
 
+  console.log(plugin.theme);
+
   ReactDOM.render(
     <React.StrictMode>
       <App style={{ color: plugin.theme.primaryColor }} />
