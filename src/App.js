@@ -11,9 +11,12 @@ import "./App.css";
 function App({ plugin }) {
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const [selectedIcon, setSelectedIcon] = useState(null);
+  const [selectedIcon, setSelectedIcon] = useState(
+    plugin?.getFieldValue("fontAwesomeIcon") || null
+  );
   const handleIconClick = (icon) => {
     setSelectedIcon(icon);
+    plugin?.setFieldValue("fontAwesomeIcon", icon);
   };
 
   const allIcons = [...iconsSolid, ...iconsRegular, ...iconsBrands]
