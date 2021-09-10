@@ -2,10 +2,39 @@
   "name": "datocms-plugin-fontawesome",
   "version": "0.1.0",
   "private": true,
+  "datoCmsPlugin": {
+    "title": "Font Awesome",
+    "previewImage": "docs/demo.gif",
+    "coverImage": "docs/cover.jpg",
+    "entryPoint": "dist/index.html",
+    "fieldTypes": [
+      "json"
+    ],
+    "pluginType": "field_editor",
+    "parameters": {
+      "global": [
+        {
+          "id": "developmentMode",
+          "label": "Development mode?",
+          "type": "boolean",
+          "hint": "Enable development logs on the console"
+        }
+      ],
+      "instance": [
+        {
+          "id": "fontAwesomeIcon",
+          "label": "Font Awesome Icon",
+          "type": "JSON",
+          "required": true
+        }
+      ]
+    }
+  },
   "dependencies": {
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
+    "datocms-plugins-sdk": "^0.1.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-scripts": "4.0.3",
