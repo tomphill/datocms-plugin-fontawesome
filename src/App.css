@@ -3,6 +3,8 @@
   grid-template-columns: 1fr 1fr 1fr 1fr;
   font-size: 14px;
   padding: 20px;
+  max-height: 300px;
+  overflow: auto;
 }
 .icon {
   padding: 4px 0;
