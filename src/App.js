@@ -63,7 +63,10 @@ function App({ plugin }) {
           <div className="search-input-wrapper">
             <input
               value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
+              onChange={(e) => {
+                setCurrentPage(1);
+                setSearchTerm(e.target.value);
+              }}
               placeholder="Search..."
               type="search"
             />
@@ -121,7 +124,8 @@ function App({ plugin }) {
               );
             })}
         </div>
-        {!selectedIcon && (
+        {!workingIcons.length && <h3>No icons found.</h3>}
+        {!selectedIcon && !!workingIcons.length && (
           <div className="pagination">
             <div>
               <div>
@@ -132,7 +136,9 @@ function App({ plugin }) {
                   onClick={() => setCurrentPage(1)}
                   disabled={currentPage === 1}
                   className="btn"
-                  style={{ background: plugin?.theme.primaryColor || "black" }}
+                  style={{
+                    background: plugin?.theme.primaryColor || "black",
+                  }}
                 >
                   <FontAwesomeIcon icon={faSolid.faAngleDoubleLeft} />
                 </button>
@@ -140,7 +146,9 @@ function App({ plugin }) {
                   onClick={() => setCurrentPage((s) => s - 1)}
                   disabled={currentPage === 1}
                   className="btn"
-                  style={{ background: plugin?.theme.primaryColor || "black" }}
+                  style={{
+                    background: plugin?.theme.primaryColor || "black",
+                  }}
                 >
                   <FontAwesomeIcon icon={faSolid.faAngleLeft} />
                 </button>
@@ -148,7 +156,9 @@ function App({ plugin }) {
                   disabled={currentPage === totalPages}
                   onClick={() => setCurrentPage((s) => s + 1)}
                   className="btn"
-                  style={{ background: plugin?.theme.primaryColor || "black" }}
+                  style={{
+                    background: plugin?.theme.primaryColor || "black",
+                  }}
                 >
                   <FontAwesomeIcon icon={faSolid.faAngleRight} />
                 </button>
@@ -156,7 +166,9 @@ function App({ plugin }) {
                   disabled={currentPage === totalPages}
                   onClick={() => setCurrentPage(totalPages)}
                   className="btn"
-                  style={{ background: plugin?.theme.primaryColor || "black" }}
+                  style={{
+                    background: plugin?.theme.primaryColor || "black",
+                  }}
                 >
                   <FontAwesomeIcon icon={faSolid.faAngleDoubleRight} />
                 </button>
