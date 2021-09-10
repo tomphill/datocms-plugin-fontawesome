@@ -15,8 +15,23 @@
 }
 .icon > div {
   width: 40px;
+  min-width: 40px;
+  display: flex;
+  justify-content: center;
 }
 .icon > span {
   padding-left: 4px;
   margin: auto 0;
+}
+
+@media (max-width: 900px) {
+  .App {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .App {
+    grid-template-columns: 1fr 1fr;
+  }
 }
