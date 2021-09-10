@@ -9,17 +9,16 @@ import * as faBrands from "@fortawesome/free-brands-svg-icons";
 import "./App.css";
 
 function App({ plugin }) {
+  const initValue = plugin?.getFieldValue(plugin?.fieldPath);
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedIcon, setSelectedIcon] = useState(
-    plugin?.getFieldValue(plugin?.fieldPath) || null
+    initValue ? JSON.parse(initValue) : null
   );
   const handleIconClick = (icon) => {
     setSelectedIcon(icon);
     plugin?.setFieldValue(plugin?.fieldPath, JSON.stringify(icon));
   };
-
-  console.log("VALUE: ", JSON.parse(plugin?.getFieldValue(plugin?.fieldPath)));
 
   const allIcons = [...iconsSolid, ...iconsRegular, ...iconsBrands]
     .filter((icon) => {
