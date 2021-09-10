@@ -84,7 +84,13 @@ function App({ plugin }) {
               <FontAwesomeIcon icon={selectedIcon.reactImport} />
             </div>
             <span>{selectedIcon.name}</span>
-            <div onClick={() => setSelectedIcon(null)} className="remove-text">
+            <div
+              onClick={() => {
+                plugin?.setFieldValue("fontAwesomeIcon", null);
+                setSelectedIcon(null);
+              }}
+              className="remove-text"
+            >
               Remove
             </div>
           </div>
