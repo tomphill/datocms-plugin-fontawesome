@@ -12,11 +12,11 @@ function App({ plugin }) {
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedIcon, setSelectedIcon] = useState(
-    plugin?.getFieldValue("fontAwesomeIcon") || null
+    plugin?.getFieldValue(plugin?.fieldPath) || null
   );
   const handleIconClick = (icon) => {
     setSelectedIcon(icon);
-    plugin?.setFieldValue("fontAwesomeIcon", icon);
+    plugin?.setFieldValue(plugin?.fieldPath, icon);
   };
 
   const allIcons = [...iconsSolid, ...iconsRegular, ...iconsBrands]
@@ -86,7 +86,7 @@ function App({ plugin }) {
             <span>{selectedIcon.name}</span>
             <div
               onClick={() => {
-                plugin?.setFieldValue("fontAwesomeIcon", null);
+                plugin?.setFieldValue(plugin?.fieldPath, null);
                 setSelectedIcon(null);
               }}
               className="remove-text"
