@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { iconsBrands } from "./icons/iconsBrands";
-import { iconsRegular } from "./icons/iconsRegular";
+//import { iconsBrands } from "./icons/iconsBrands";
+//import { iconsRegular } from "./icons/iconsRegular";
 import { iconsSolid } from "./icons/iconsSolid";
 import * as faSolid from "@fortawesome/free-solid-svg-icons";
 import "./App.css";
