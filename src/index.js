@@ -5,19 +5,26 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import DatoCmsPlugin from "datocms-plugins-sdk";
 
-DatoCmsPlugin.init(function (plugin) {
-  // place your custom plugin code here
-  plugin.startAutoResizer();
-
-  console.log(plugin.theme);
-
+const renderUI = (plugin) => {
   ReactDOM.render(
     <React.StrictMode>
       <App plugin={plugin} />
     </React.StrictMode>,
     document.getElementById("root")
   );
-});
+};
+
+if (process.env.NODE_ENV === "development") {
+  renderUI();
+} else if (process.env.NODE_ENV === "production") {
+  DatoCmsPlugin.init(function (plugin) {
+    // place your custom plugin code here
+    plugin.startAutoResizer();
+
+    console.log(plugin.theme);
+    renderUI(plugin);
+  });
+}
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

@@ -1,0 +1,22 @@
+.App {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  font-size: 14px;
+  padding: 20px;
+}
+.icon {
+  padding: 4px 0;
+  cursor: pointer;
+  display: flex;
+}
+.icon svg {
+  font-size: 20px;
+  margin: auto 0;
+}
+.icon > div {
+  width: 40px;
+}
+.icon > span {
+  padding-left: 4px;
+  margin: auto 0;
+}
