@@ -79,12 +79,12 @@ function App({ plugin }) {
         {!!selectedIcon && (
           <div
             className="selected-icon"
-            key={`${selectedIcon.prefix}${selectedIcon.name}`}
+            key={`${selectedIcon.prefix}${selectedIcon.iconName}`}
           >
             <div>
               <FontAwesomeIcon icon={selectedIcon} />
             </div>
-            <span>{selectedIcon.name}</span>
+            <span>{selectedIcon.iconName}</span>
             <div
               onClick={() => {
                 plugin?.setFieldValue(plugin?.fieldPath, null);
