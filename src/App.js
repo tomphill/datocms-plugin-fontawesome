@@ -82,7 +82,7 @@ function App({ plugin }) {
             key={`${selectedIcon.prefix}${selectedIcon.name}`}
           >
             <div>
-              <FontAwesomeIcon icon={selectedIcon.reactImport} />
+              <FontAwesomeIcon icon={selectedIcon} />
             </div>
             <span>{selectedIcon.name}</span>
             <div
@@ -119,8 +119,7 @@ function App({ plugin }) {
                 <div
                   onClick={() =>
                     handleIconClick({
-                      ...icon,
-                      reactImport: importFrom[`fa${reactIconName}`],
+                      ...importFrom[`fa${reactIconName}`],
                     })
                   }
                   className="icon"
