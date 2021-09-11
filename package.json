@@ -1,7 +1,6 @@
 {
   "name": "datocms-plugin-fontawesome",
   "version": "0.1.0",
-  "homepage": "https://github.com/tomphill/datocms-plugin-fontawesome",
   "description": "An unofficial plugin that allows use of Font Awesome v5 free icons in DatoCMS",
   "keywords": ["datocms-plugin", "fontawesome"],
   "datoCmsPlugin": {
