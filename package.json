@@ -1,6 +1,6 @@
 {
   "name": "datocms-plugin-fontawesome",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "An unofficial plugin that allows use of Font Awesome v5 free icons in DatoCMS",
   "keywords": ["datocms-plugin", "fontawesome"],
   "datoCmsPlugin": {
@@ -25,8 +25,7 @@
         {
           "id": "fontAwesomeIcon",
           "label": "Font Awesome Icon",
-          "type": "JSON",
-          "required": true
+          "type": "json"
         }
       ]
     }
