@@ -1,13 +1,14 @@
 {
   "name": "datocms-plugin-fontawesome",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "An unofficial plugin that allows use of Font Awesome v5 free icons in DatoCMS",
   "keywords": ["datocms-plugin", "fontawesome"],
+  "homepage": "./",
   "datoCmsPlugin": {
     "title": "Font Awesome",
     "previewImage": "docs/preview.gif",
     "coverImage": "docs/cover.png",
-    "entryPoint": "dist/index.html",
+    "entryPoint": "build/index.html",
     "fieldTypes": [
       "json"
     ],
@@ -49,7 +50,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "prepublishOnly": "npm run build"
   },
   "eslintConfig": {
     "extends": [
