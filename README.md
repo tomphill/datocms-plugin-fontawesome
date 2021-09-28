@@ -25,3 +25,17 @@ The data structure will be a stringified JSON object with the following structur
         ]
     }
 ```
+
+## Usage
+
+If using with React, you can pass the entire output object above as the `icon` prop to the FontAwesomeIcon component. Assuming the output object above hasn't already been parsed and is stored in a variable called myIcon, you can use it like so:
+
+`<FontAwesomeIcon icon={JSON.parse(myIcon)} />`
+
+If you want to use via class names, you can concatenate the `prefix` and `iconName` like so:
+
+```
+const parsedIcon = JSON.parse(myIcon);
+const className = `${parsedIcon.prefix} fa-${parsedIcon.iconName}`;
+console.log(className); // outputs "fab fa-amazon"
+```
