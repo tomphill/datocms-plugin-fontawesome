@@ -32,6 +32,8 @@ If using with React, you can pass the entire output object above as the `icon` p
 
 `<FontAwesomeIcon icon={JSON.parse(myIcon)} />`
 
+Check out the video tutorial for usage with React: https://youtu.be/a526r4uo4aI
+
 If you want to use via class names, you can concatenate the `prefix` and `iconName` like so:
 
 ```
