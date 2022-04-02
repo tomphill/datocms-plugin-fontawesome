@@ -8,6 +8,7 @@ import { render } from "./utils/render";
 import "datocms-react-ui/styles.css";
 import FontAwesomePicker from "./components/FontAwesomePicker";
 import ReactDOM from "react-dom";
+import { Canvas } from "datocms-react-ui";
 
 if (process.env.NODE_ENV === "development") {
   const container = document.createElement("div");
@@ -32,7 +33,11 @@ if (process.env.NODE_ENV === "development") {
     ) {
       switch (fieldExtensionId) {
         case "fontawesome":
-          return render(<FontAwesomePicker ctx={ctx} />);
+          return render(
+            <Canvas ctx={ctx}>
+              <FontAwesomePicker ctx={ctx} />
+            </Canvas>
+          );
         default:
           return null;
       }
