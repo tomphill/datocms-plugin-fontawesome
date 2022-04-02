@@ -8,7 +8,6 @@ import { render } from "./utils/render";
 import "datocms-react-ui/styles.css";
 import FontAwesomePicker from "./components/FontAwesomePicker";
 import ReactDOM from "react-dom";
-import { Canvas } from "datocms-react-ui";
 
 if (process.env.NODE_ENV === "development") {
   const container = document.createElement("div");
