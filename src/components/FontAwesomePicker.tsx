@@ -1,23 +1,36 @@
-import React, { useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { iconsBrands } from "./icons/iconsBrands";
-import { iconsRegular } from "./icons/iconsRegular";
-import { iconsSolid } from "./icons/iconsSolid";
+import { RenderFieldExtensionCtx } from "datocms-plugin-sdk";
+import { FC, useState } from "react";
+import get from "lodash/get";
+
+import {
+  FontAwesomeIcon,
+  FontAwesomeIconProps,
+} from "@fortawesome/react-fontawesome";
+import { iconsBrands } from "../icons/iconsBrands";
+import { iconsRegular } from "../icons/iconsRegular";
+import { iconsSolid } from "../icons/iconsSolid";
 import * as faSolid from "@fortawesome/free-solid-svg-icons";
 import * as faRegular from "@fortawesome/free-regular-svg-icons";
 import * as faBrands from "@fortawesome/free-brands-svg-icons";
-import "./App.css";
 
-function App({ plugin }) {
-  const initValue = plugin?.getFieldValue(plugin?.fieldPath);
+import "./styles.css";
+
+type Props = {
+  ctx?: RenderFieldExtensionCtx;
+};
+
+const FontAwesomePicker: FC<Props> = ({ ctx }) => {
+  const initialValue = get(ctx?.formValues, ctx?.fieldPath || "");
+  const [showIcons, setShowIcons] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedIcon, setSelectedIcon] = useState(
-    initValue ? JSON.parse(initValue) : null
+    typeof initialValue === "string" ? JSON.parse(initialValue) : null
   );
-  const handleIconClick = (icon) => {
+
+  const handleIconClick = (icon: FontAwesomeIconProps) => {
     setSelectedIcon(icon);
-    plugin?.setFieldValue(plugin?.fieldPath, JSON.stringify(icon));
+    ctx?.setFieldValue(ctx.fieldPath, icon ? JSON.stringify(icon) : "");
   };
 
   const allIcons = [...iconsSolid, ...iconsRegular, ...iconsBrands]
@@ -40,14 +53,14 @@ function App({ plugin }) {
       return 0;
     });
 
-  const getReactIconName = (icon) => {
-    let iconNameSpaces = icon.name.replace("-", " ");
+  const getReactIconName = (icon: { prefix: string; name: string }) => {
+    let iconNameSpaces = icon?.name?.replace("-", " ") || "";
     while (iconNameSpaces.indexOf("-") !== -1) {
       iconNameSpaces = iconNameSpaces.replace("-", " ");
     }
     const iconNameSplit = iconNameSpaces.split(" ");
     let reactIconName = "";
-    iconNameSplit.forEach((str) => {
+    iconNameSplit.forEach((str: string) => {
       reactIconName = `${reactIconName}${str[0].toUpperCase()}${str.substr(1)}`;
     });
     return reactIconName;
@@ -64,17 +77,26 @@ function App({ plugin }) {
     <>
       <div className="App">
         {!selectedIcon && (
-          <div className="search-input-wrapper">
-            <input
-              value={searchTerm}
-              onChange={(e) => {
-                setCurrentPage(1);
-                setSearchTerm(e.target.value);
-              }}
-              placeholder="Search..."
-              type="search"
-            />
-          </div>
+          <>
+            <div style={{ marginBottom: 20 }}>
+              <span className="toggler" onClick={() => setShowIcons((s) => !s)}>
+                {showIcons ? "Hide" : "Show"} all icons
+              </span>
+            </div>
+            {!!showIcons && (
+              <div className="search-input-wrapper">
+                <input
+                  value={searchTerm}
+                  onChange={(e) => {
+                    setCurrentPage(1);
+                    setSearchTerm(e.target.value);
+                  }}
+                  placeholder="Search..."
+                  type="search"
+                />
+              </div>
+            )}
+          </>
         )}
         {!!selectedIcon && (
           <div
@@ -87,7 +109,7 @@ function App({ plugin }) {
             <span>{selectedIcon.iconName}</span>
             <div
               onClick={() => {
-                plugin?.setFieldValue(plugin?.fieldPath, null);
+                ctx?.setFieldValue(ctx.fieldPath, null);
                 setSelectedIcon(null);
               }}
               className="remove-text"
@@ -98,9 +120,10 @@ function App({ plugin }) {
         )}
         <div className="grid">
           {!selectedIcon &&
+            !!showIcons &&
             workingIcons.map((icon) => {
               const reactIconName = getReactIconName(icon);
-              let importFrom;
+              let importFrom: any;
               switch (icon.prefix) {
                 case "fas":
                   importFrom = faSolid;
@@ -134,7 +157,7 @@ function App({ plugin }) {
             })}
         </div>
         {!workingIcons.length && <h3>No icons found.</h3>}
-        {!selectedIcon && !!workingIcons.length && (
+        {!selectedIcon && !!showIcons && !!workingIcons.length && (
           <div className="pagination">
             <div>
               <div>
@@ -146,7 +169,7 @@ function App({ plugin }) {
                   disabled={currentPage === 1}
                   className="btn"
                   style={{
-                    background: plugin?.theme.primaryColor || "black",
+                    background: ctx?.theme.primaryColor || "black",
                   }}
                 >
                   <FontAwesomeIcon icon={faSolid.faAngleDoubleLeft} />
@@ -156,7 +179,7 @@ function App({ plugin }) {
                   disabled={currentPage === 1}
                   className="btn"
                   style={{
-                    background: plugin?.theme.primaryColor || "black",
+                    background: ctx?.theme.primaryColor || "black",
                   }}
                 >
                   <FontAwesomeIcon icon={faSolid.faAngleLeft} />
@@ -166,7 +189,7 @@ function App({ plugin }) {
                   onClick={() => setCurrentPage((s) => s + 1)}
                   className="btn"
                   style={{
-                    background: plugin?.theme.primaryColor || "black",
+                    background: ctx?.theme.primaryColor || "black",
                   }}
                 >
                   <FontAwesomeIcon icon={faSolid.faAngleRight} />
@@ -176,7 +199,7 @@ function App({ plugin }) {
                   onClick={() => setCurrentPage(totalPages)}
                   className="btn"
                   style={{
-                    background: plugin?.theme.primaryColor || "black",
+                    background: ctx?.theme.primaryColor || "black",
                   }}
                 >
                   <FontAwesomeIcon icon={faSolid.faAngleDoubleRight} />
@@ -188,6 +211,5 @@ function App({ plugin }) {
       </div>
     </>
   );
-}
-
-export default App;
+};
+export default FontAwesomePicker;

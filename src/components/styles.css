@@ -2,6 +2,13 @@
   padding: 20px;
   border: 1px solid #eee;
 }
+.toggler {
+  color: #666;
+  cursor: pointer;
+}
+.toggler:hover {
+  color: black;
+}
 .pagination {
   margin: 10px auto;
   display: flex;
