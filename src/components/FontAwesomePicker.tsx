@@ -17,7 +17,7 @@ import "./styles.css";
 import { Canvas } from "datocms-react-ui";
 
 type Props = {
-  ctx?: RenderFieldExtensionCtx;
+  ctx: RenderFieldExtensionCtx;
 };
 
 const FontAwesomePicker: FC<Props> = ({ ctx }) => {
@@ -74,8 +74,8 @@ const FontAwesomePicker: FC<Props> = ({ ctx }) => {
   );
   const totalPages = Math.ceil(allIcons.length / pageSize);
 
-  const children = (
-    <>
+  return (
+    <Canvas ctx={ctx}>
       <div className="App">
         {!selectedIcon && (
           <>
@@ -210,9 +210,8 @@ const FontAwesomePicker: FC<Props> = ({ ctx }) => {
           </div>
         )}
       </div>
-    </>
+    </Canvas>
   );
-
-  return ctx ? <Canvas ctx={ctx}>{children}</Canvas> : <>{children}</>;
 };
+
 export default FontAwesomePicker;
