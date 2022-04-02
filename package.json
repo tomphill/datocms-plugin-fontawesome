@@ -61,10 +61,6 @@
     "title": "Font Awesome",
     "previewImage": "docs/preview.gif",
     "coverImage": "docs/cover.png",
-    "entryPoint": "build/index.html",
-    "fieldTypes": [
-      "json"
-    ],
-    "pluginType": "field_editor"
+    "entryPoint": "build/index.html"
   }
 }
