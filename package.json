@@ -34,6 +34,10 @@
     "json-field",
     "fontawesome"
   ],
+  "files": [
+    "docs",
+    "build"
+  ],
   "author": "Tom Phillips <info@tomphill.co.uk>",
   "license": "ISC",
   "eslintConfig": {
