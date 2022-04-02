@@ -14,6 +14,7 @@ import * as faRegular from "@fortawesome/free-regular-svg-icons";
 import * as faBrands from "@fortawesome/free-brands-svg-icons";
 
 import "./styles.css";
+import { Canvas } from "datocms-react-ui";
 
 type Props = {
   ctx?: RenderFieldExtensionCtx;
@@ -73,7 +74,7 @@ const FontAwesomePicker: FC<Props> = ({ ctx }) => {
   );
   const totalPages = Math.ceil(allIcons.length / pageSize);
 
-  return (
+  const children = (
     <>
       <div className="App">
         {!selectedIcon && (
@@ -211,5 +212,7 @@ const FontAwesomePicker: FC<Props> = ({ ctx }) => {
       </div>
     </>
   );
+
+  return ctx ? <Canvas ctx={ctx}>{children}</Canvas> : <>{children}</>;
 };
 export default FontAwesomePicker;

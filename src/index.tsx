@@ -33,11 +33,7 @@ if (process.env.NODE_ENV === "development") {
     ) {
       switch (fieldExtensionId) {
         case "fontawesome":
-          return render(
-            <Canvas ctx={ctx}>
-              <FontAwesomePicker ctx={ctx} />
-            </Canvas>
-          );
+          return render(<FontAwesomePicker ctx={ctx} />);
         default:
           return null;
       }
