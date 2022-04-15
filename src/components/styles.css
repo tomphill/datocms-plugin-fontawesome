@@ -1,6 +1,6 @@
 .App {
-  padding: 20px;
-  border: 1px solid #eee;
+  padding: var(--spacing-m) var(--spacing-xl);
+  border: 1px solid var(--border-color);
 }
 .toggler {
   color: #666;
@@ -37,7 +37,8 @@
 }
 .search-input-wrapper {
   max-width: 300px;
-  padding-bottom: 20px;
+  padding-bottom: 10px;
+  margin-top: 10px;
 }
 .btn:disabled {
   opacity: 0.25;

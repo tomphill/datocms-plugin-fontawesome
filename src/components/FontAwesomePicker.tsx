@@ -14,7 +14,7 @@ import * as faRegular from "@fortawesome/free-regular-svg-icons";
 import * as faBrands from "@fortawesome/free-brands-svg-icons";
 
 import "./styles.css";
-import { Canvas } from "datocms-react-ui";
+import { Canvas, TextInput } from "datocms-react-ui";
 
 type Props = {
   ctx: RenderFieldExtensionCtx;
@@ -79,18 +79,18 @@ const FontAwesomePicker: FC<Props> = ({ ctx }) => {
       <div className="App">
         {!selectedIcon && (
           <>
-            <div style={{ marginBottom: 20 }}>
+            <div>
               <span className="toggler" onClick={() => setShowIcons((s) => !s)}>
                 {showIcons ? "Hide" : "Show"} all icons
               </span>
             </div>
             {!!showIcons && (
               <div className="search-input-wrapper">
-                <input
+                <TextInput
                   value={searchTerm}
-                  onChange={(e) => {
+                  onChange={(newValue) => {
                     setCurrentPage(1);
-                    setSearchTerm(e.target.value);
+                    setSearchTerm(newValue);
                   }}
                   placeholder="Search..."
                   type="search"
