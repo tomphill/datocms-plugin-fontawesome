@@ -41,3 +41,7 @@ const parsedIcon = JSON.parse(myIcon);
 const className = `${parsedIcon.prefix} fa-${parsedIcon.iconName}`;
 console.log(className); // outputs "fab fa-amazon"
 ```
+
+## Want to create your own custom DatoCMS plugin?
+
+Then follow this tutorial: https://youtu.be/vE6lmhZUNrQ
